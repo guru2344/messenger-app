@@ -4,8 +4,7 @@ import socket from "./socket";
 import axios from "axios";
 import "./App.css";
 
-const API = "https://messenger-app-0lmy.onrender.com";
-
+const API = process.env.REACT_APP_API_URL;
 function Chat({ user, logout }) {
   const [message, setMessage] = useState("");
   const [receiver, setReceiver] = useState("");
