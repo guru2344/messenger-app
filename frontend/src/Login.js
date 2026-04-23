@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./App.css";
+
+const API = "https://messenger-app-0lmy.onrender.com";
 
 function Login({ setUser }) {
   const [isLogin, setIsLogin] = useState(true);
@@ -8,22 +9,26 @@ function Login({ setUser }) {
   const [password, setPassword] = useState("");
 
   const handleAuth = async () => {
-    const url = isLogin
-      ? "http://localhost:5000/auth/login"
-      : "http://localhost:5000/auth/register";
+    try {
+      const url = isLogin
+        ? `${API}/auth/login`
+        : `${API}/auth/register`;
 
-    const res = await axios.post(url, { username, password });
+      const res = await axios.post(url, { username, password });
 
-    if (res.data.message) {
-      alert(res.data.message);
-    } else {
-      setUser({ username });
+      if (res.data.message) {
+        alert(res.data.message);
+      } else {
+        setUser({ username: res.data.username });
+      }
+    } catch (err) {
+      console.log(err);
+      alert("Server error");
     }
   };
 
   return (
-  <div className="auth-container">
-    <div className="card">
+    <div className="login-box">
       <h2>{isLogin ? "Login" : "Register"}</h2>
 
       <input
@@ -43,12 +48,11 @@ function Login({ setUser }) {
         {isLogin ? "Login" : "Register"}
       </button>
 
-      <p className="toggle" onClick={() => setIsLogin(!isLogin)}>
+      <p onClick={() => setIsLogin(!isLogin)}>
         {isLogin ? "Create account" : "Already have account?"}
       </p>
     </div>
-  </div>
-);
+  );
 }
 
 export default Login;
