@@ -21,40 +21,35 @@ function Login({ setUser }) {
   //   }
   // };
 const handleAuth = async () => {
-  // const API = "https://messenger-app-0lmy.onrender.com";
-  const API = "http://localhost:5000";
+  try {
+    const API = "http://localhost:5000";
+    // const API = "https://messenger-app-0lmy.onrender.com";
 
+    const url = isLogin
+      ? `${API}/auth/login`
+      : `${API}/auth/register`;
 
-  // const url = isLogin
-  //   ? `${API}/auth/login`
-  //   : `${API}/auth/register`;
-  const url = isLogin
-  ? `${API}/auth/login`
-  : `${API}/auth/register`;
+    const res = await axios.post(url, {
+      username: username.trim(),
+      password: password.trim()
+    });
 
-  const res = await axios.post(url, {
-    username: username.trim(),
-    password: password.trim()
-  });
+    console.log("API Response:", res.data);
 
-  console.log(res.data);
-
-  if (isLogin) {
-    if (
-      res.data.message === "Login successful" ||
-      res.data.username
-    ) {
-      setUser({
-        username: res.data.username || username
-      });
+    if (isLogin) {
+      if (res.data.username) {
+        setUser({ username: res.data.username });
+      } else {
+        alert(res.data.message);
+      }
     } else {
       alert(res.data.message);
     }
-  } else {
-    alert(res.data.message);
+  } catch (error) {
+    console.log(error);
+    alert("Request failed");
   }
 };
-
   return (
   <div className="auth-container">
     <div className="card">

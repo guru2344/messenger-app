@@ -5,6 +5,7 @@ const { Server } = require("socket.io");
 const multer = require("multer");
 const db = require("./db");
 require("dotenv").config();
+app.use("/auth", require("./routes/auth"));
 
 const app = express();
 
