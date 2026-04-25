@@ -21,11 +21,16 @@ function Login({ setUser }) {
   //   }
   // };
 const handleAuth = async () => {
-  const API = "https://messenger-app-0lmy.onrender.com";
+  // const API = "https://messenger-app-0lmy.onrender.com";
+  const API = "http://localhost:5000";
 
+
+  // const url = isLogin
+  //   ? `${API}/auth/login`
+  //   : `${API}/auth/register`;
   const url = isLogin
-    ? `${API}/auth/login`
-    : `${API}/auth/register`;
+  ? `${API}/auth/login`
+  : `${API}/auth/register`;
 
   const res = await axios.post(url, {
     username: username.trim(),
