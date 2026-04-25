@@ -4,6 +4,7 @@ const cors = require("cors");
 const { Server } = require("socket.io");
 const multer = require("multer");
 const db = require("./db");
+require("dotenv").config();
 
 const app = express();
 

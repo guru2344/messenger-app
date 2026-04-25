@@ -7,19 +7,48 @@ function Login({ setUser }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleAuth = async () => {
-    const url = isLogin
-      ? "http://localhost:5000/auth/login"
-      : "http://localhost:5000/auth/register";
+  // const handleAuth = async () => {
+  //   const url = isLogin
+  //     ? "http://localhost:5000/auth/login"
+  //     : "http://localhost:5000/auth/register";
 
-    const res = await axios.post(url, { username, password });
+  //   const res = await axios.post(url, { username, password });
 
-    if (res.data.message) {
-      alert(res.data.message);
+  //   if (res.data.message) {
+  //     alert(res.data.message);
+  //   } else {
+  //     setUser({ username });
+  //   }
+  // };
+const handleAuth = async () => {
+  const API = "https://messenger-app-0lmy.onrender.com";
+
+  const url = isLogin
+    ? `${API}/auth/login`
+    : `${API}/auth/register`;
+
+  const res = await axios.post(url, {
+    username: username.trim(),
+    password: password.trim()
+  });
+
+  console.log(res.data);
+
+  if (isLogin) {
+    if (
+      res.data.message === "Login successful" ||
+      res.data.username
+    ) {
+      setUser({
+        username: res.data.username || username
+      });
     } else {
-      setUser({ username });
+      alert(res.data.message);
     }
-  };
+  } else {
+    alert(res.data.message);
+  }
+};
 
   return (
   <div className="auth-container">
