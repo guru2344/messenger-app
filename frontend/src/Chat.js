@@ -4,7 +4,7 @@ import socket from "./socket";
 import axios from "axios";
 import "./App.css";
 
-const API = process.env.REACT_APP_API_URL;
+const API = "http://localhost:5000";
 function Chat({ user, logout }) {
   const [message, setMessage] = useState("");
   const [receiver, setReceiver] = useState("");
