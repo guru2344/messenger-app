@@ -22,8 +22,8 @@ function Login({ setUser }) {
   // };
 const handleAuth = async () => {
   try {
-    const API = "http://localhost:5000";
-    // const API = "https://messenger-app-0lmy.onrender.com";
+    // const API = "http://localhost:5000";
+    const API = "https://messenger-app-0lmy.onrender.com";
 
     const url = isLogin
       ? `${API}/auth/login`
